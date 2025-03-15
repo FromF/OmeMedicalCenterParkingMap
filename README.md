@@ -1,0 +1,2 @@
+# OmeMedicalCenterParkingMap
+市立青梅総合医療センターの駐車場空き状況を確認できるアプリ
