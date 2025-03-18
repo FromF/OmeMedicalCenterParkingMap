@@ -21,11 +21,11 @@ struct ContentView: View {
     
     // 駐車場リスト（各URLは駐車状況画像のURL）
     private let parkingLots: [ParkingLot] = [
-        ParkingLot(name: "第２駐車場", coordinate: CLLocationCoordinate2D(latitude: 35.7824367, longitude: 139.2819828), statusImageURL: "http://cnt.parkingweb.jp/001/000000/000001/003287/001/0001parking_status.jpg"),
-        ParkingLot(name: "第７駐車場", coordinate: CLLocationCoordinate2D(latitude: 35.7824367, longitude: 139.2819828), statusImageURL: "http://cnt.parkingweb.jp/001/000000/000001/003288/001/0001parking_status.jpg"),
-        ParkingLot(name: "新棟地下駐車場", coordinate: CLLocationCoordinate2D(latitude: 35.782918, longitude: 139.281154), statusImageURL: "http://cnt.parkingweb.jp/001/000000/000001/003292/001/0001parking_status.jpg"),
-        ParkingLot(name: "第５駐車場", coordinate: CLLocationCoordinate2D(latitude: 35.7835562, longitude: 139.2807382), statusImageURL: "http://cnt.parkingweb.jp/001/000000/000001/003290/001/0001parking_status.jpg"),
-        ParkingLot(name: "第８駐車場", coordinate: CLLocationCoordinate2D(latitude: 35.7811664, longitude: 139.2822158), statusImageURL: "http://cnt.parkingweb.jp/001/000000/000001/003289/001/0001parking_status.jpg")
+        ParkingLot(name: "第２駐車場(65台)", coordinate: CLLocationCoordinate2D(latitude: 35.78160, longitude: 139.28233), statusImageURL: "http://cnt.parkingweb.jp/001/000000/000001/003287/001/0001parking_status.jpg"),
+        ParkingLot(name: "第７駐車場(17台)", coordinate: CLLocationCoordinate2D(latitude: 35.78235, longitude: 139.28229), statusImageURL: "http://cnt.parkingweb.jp/001/000000/000001/003288/001/0001parking_status.jpg"),
+        ParkingLot(name: "新棟地下駐車場(120台)", coordinate: CLLocationCoordinate2D(latitude: 35.78318, longitude: 139.28069), statusImageURL: "http://cnt.parkingweb.jp/001/000000/000001/003292/001/0001parking_status.jpg"),
+        ParkingLot(name: "第５駐車場(54台)", coordinate: CLLocationCoordinate2D(latitude: 35.78381, longitude: 139.28036), statusImageURL: "http://cnt.parkingweb.jp/001/000000/000001/003290/001/0001parking_status.jpg"),
+        ParkingLot(name: "第８駐車場(13台)", coordinate: CLLocationCoordinate2D(latitude: 35.78082, longitude: 139.28294), statusImageURL: "http://cnt.parkingweb.jp/001/000000/000001/003289/001/0001parking_status.jpg")
     ]
     
     var body: some View {
