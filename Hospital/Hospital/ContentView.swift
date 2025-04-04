@@ -16,6 +16,7 @@ struct ContentView: View {
     )
     
     @State private var refreshTrigger = UUID()
+    @State private var infomationText: String?
     
     private let locationManager = CLLocationManager()
     
@@ -30,47 +31,62 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            // Map viewに駐車場のアノテーションを追加
-            Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: parkingLots) { lot in
-                MapAnnotation(coordinate: lot.coordinate) {
-                    VStack {
-                        AsyncImage(url: URL(string: lot.statusImageURL)) { phase in
-                            if let image = phase.image {
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 30, height: 30)
-                            } else {
-                                Image(systemName: "parkingsign.circle.fill")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                    .foregroundColor(.blue)
+            ZStack {
+                // Map viewに駐車場のアノテーションを追加
+                Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: parkingLots) { lot in
+                    MapAnnotation(coordinate: lot.coordinate) {
+                        VStack {
+                            AsyncImage(url: URL(string: lot.statusImageURL)) { phase in
+                                if let image = phase.image {
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 30, height: 30)
+                                } else {
+                                    Image(systemName: "parkingsign.circle.fill")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                        .foregroundColor(.blue)
+                                }
                             }
                         }
-                    }
-                    Text(lot.name)
-                        .font(.caption)
-                }
-            }
-            .mapStyle(.standard(elevation: .automatic, emphasis: .automatic, pointsOfInterest: .all, showsTraffic: true))
-            .id(refreshTrigger)
-            .navigationTitle("駐車場空き状況")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        refreshTrigger = UUID()
-                        region = MKCoordinateRegion(
-                            center: CLLocationCoordinate2D(latitude: 35.7826825, longitude: 139.2819988),
-                            span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-                        )
-                    }) {
-                        Image(systemName: "arrow.clockwise")
+                        Text(lot.name)
+                            .font(.caption)
                     }
                 }
-            }
+                .mapStyle(.standard(elevation: .automatic, emphasis: .automatic, pointsOfInterest: .all, showsTraffic: true))
+                .navigationTitle("駐車場空き状況")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            refreshTrigger = UUID()
+                            region = MKCoordinateRegion(
+                                center: CLLocationCoordinate2D(latitude: 35.7826825, longitude: 139.2819988),
+                                span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+                            )
+                        }) {
+                            Image(systemName: "arrow.clockwise")
+                        }
+                    }
+                }
+                VStack {
+                    if let infomationText = infomationText {
+                        Text(infomationText)
+                            .bold()
+                            .padding()
+                            .background(Color.white)
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+            } // ZStack
             .onAppear {
                 locationManager.requestWhenInUseAuthorization()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .none
+                dateFormatter.timeStyle = .short
+                infomationText = dateFormatter.string(from: Date.now)
             }
+            .id(refreshTrigger)
         }
     }
 }
